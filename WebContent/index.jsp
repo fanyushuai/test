@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>jQuery展开收缩在线客服QQ代码 - 站长素材</title>
+<title>奔跑吧213</title>
 <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src='js/jquery.transform.js'></script>
 <script type="text/javascript" src="js/index.js"></script>
@@ -65,7 +65,7 @@
         </a>
     </li>
     </ul>
-    <div style="top:50%;	; z-index: 5;">奔跑吧，骚年们！</div>
+    <div style="top:50%;	; z-index: 5;">奔跑吧，213！</div>
 </div>
 <script>
 
