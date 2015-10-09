@@ -1,11 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="refresh" charset="utf-8" content="10;url=main.jsp"/>
 <title>奔跑吧213</title>
 <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src='js/jquery.transform.js'></script>
 <script type="text/javascript" src="js/index.js"></script>
+<link rel="Shortcut Icon" href="images/favicon.jpg" type="image/x-icon" />
 <link rel="stylesheet" href="css/zzsc.css"/>
 <link rel="stylesheet" href="css/run.css"/>
 </head>
@@ -38,7 +39,7 @@
 					<div class="hides" id="p1">
 						<img src="images/kefu/ll04.png">
 					</div>
-					<div class="hides" id="p2"><span style="color:#FFF;font-size:13px">467793977</span>
+					<div class="hides" id="p2"><span style="color:#FFF;font-size:13px">1619551651</span>
 					</div>
 				</div>
 				<img src="images/kefu/l04.png" width="47" height="49" class="shows" />
@@ -68,7 +69,6 @@
     <div style="top:50%;	; z-index: 5;">奔跑吧，213！</div>
 </div>
 <script>
-
 $(document).ready(function(){
     
     $("#leftsead a").hover(function(){

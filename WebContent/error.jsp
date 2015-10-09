@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>同步</title>
+<title>Sorry</title>
+<link rel="Shortcut Icon" href="images/favicon.jpg" type="image/x-icon" />
 <style>
   *{padding:0;margin:0;}
 	body{
@@ -90,9 +91,7 @@
 		<div class="ghostWave"></div>
 		<div class="shadow"></div>
 	</div>
-</head>
-<body>
 	<div id="gesturepwd"></div>
-	<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+	<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">见鬼了，我的页面呢？？？！！！</div>
 </body>
 </html>

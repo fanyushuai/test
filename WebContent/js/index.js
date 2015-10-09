@@ -8,7 +8,7 @@ $(document).ready( function() {
     }, 0, function() {
       $(this).animate({
         'top' : '90px',
-        transform: 'scale(1)'	
+        transform: 'scale(2)'	
       }, 2000);
     });
   });
