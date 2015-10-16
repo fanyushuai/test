@@ -10,17 +10,19 @@
 <script type="text/javascript" src="js/my.js"></script>
 <script type="text/javascript">
 	window.onload=function(){ 
-		$("#ball").offset(round());
-		$("#sky").offset(round());
-		$("#click").offset(round());
-		};
+		$(".dow").each(function(index,element){
+			$("#"+element.id).offset(round());
+		})
+	};
 </script>
 </head>
-<body background="images/back.jpg">
+<body>
 	<center>
 		<a id="ball" class="dow" href="ball.html">球</a>
 		<a id="sky" class="dow" href="sky.html">云朵</a>
-		<a id="click"class="dow" href="what.html">what</a>
+		<a id="click" class="dow" href="what.html">what</a>
+		<a id="no" class="dow" href="haha.html">不要点</a>
+		<a id="dangmu" class="dow" href="haha.html">弹幕</a>
 	</center>
 </body>
 </html>

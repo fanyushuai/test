@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>jQuery.danmu.js jQuery弹幕插件</title>
+<script src="js/jquery-1.11.2.min.js"></script>
+<script src="js/jquery.danmu.js"></script>
+<script src="js/my.js"></script>
+<script src="js/movediv.js"></script>
+</head>
+
+<body id="danmu" style="width: 100%;height: 100%;color: black">
+	<div id="setting" style="z-index: 1;background-color:gray;border:1px solid #000;">
+		<table>
+			<tr>
+				<!--  <td>
+					<button type="button" onclick="resumer() ">开始/继续</button>
+				</td>-->
+				<td>
+					<button type="button" onclick="pauser()">暂停</button>
+				</td>
+			</tr>
+			<tr>
+				
+			</tr>
+			<tr>
+				<td>显示弹幕:</td>
+				<td><input type="checkbox" checked="checked" id="ishide"
+					value="is" onchange="changehide()">
+				</td>
+			</tr>
+			<tr>
+				<td>弹幕透明度:</td>
+				<td><input type="range" name="op" id="op" onchange="op()"
+					value="100">
+				</td>
+			</tr>
+			<tr>
+				<td>发弹幕:</td>
+				<td>
+					<select name="color" id="color">
+							<option value="black">黑色</option>
+							<option value="white">白色</option>
+							<option value="red">红色</option>
+							<option value="green">绿色</option>
+							<option value="blue">蓝色</option>
+							<option value="yellow">黄色</option>
+					</select> 
+					<select name="size" id="text_size">
+							<option value="1">大文字</option>
+							<option value="0">小文字</option>
+					</select> 
+					<select name="position" id="position">
+							<option value="0">滚动</option>
+							<option value="1">顶端</option>
+							<option value="2">底端</option>
+					</select> 
+				</td>
+			</tr>
+			<tr>
+				<td>
+					内容：<input type="textarea" id="text" max="300" clos="100">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					昵称：<input type="text" id="name" max="10">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<button type="button" onclick="send()">发送</button>
+				</td>
+			</tr>
+			
+		</table>
+		<!--当前弹幕运行时间(秒)：<span
+			id="time">0</span>&nbsp;&nbsp; 设置当前弹幕时间(秒)： <input type="text"
+			id="set_time" max="20">
+		<button type="button" onclick="settime()">设置</button>-->
+
+	</div>
+	<script>
+		(function($) {
+			$.Move($('#setting'));
+			$('#danmu').danmu('danmuResume');
+			/**
+			setInterval("msg", 1000);
+			$("#danmu").danmu("addDanmu", [ {
+				text : msgInfo(),
+				color : "white",
+				size : 1,
+				position : 0,
+				time : 2
+			} ]);**/
+			$("#danmu").danmu({
+				// left:$("#danmuarea").offset().left,
+				// top:$("#danmuarea").offset().top,
+				// height: 445,
+				//    width: 800,
+				left : 0,
+				top : 0,
+				height : "100%",
+				width : "100%",
+				opacity : 1,
+
+			});
+		})(jQuery);
+		/**$("#danmu").danmu("addDanmu", [ {
+			text : msgInfo(),
+			color : "white",
+			size : 1,
+			position : 0,
+			time : 2
+		}, {
+			text : "这是顶部弹幕",
+			color : "yellow",
+			size : 1,
+			position : 1,
+			time : 3
+		}, {
+			text : "这是底部弹幕",
+			color : "red",
+			size : 1,
+			position : 2,
+			time : 3
+		} ])**/
+		query();
+		timedCount();
+
+		function timedCount() {
+			$("#time").text($('#danmu').data("nowTime"));
+
+			t = setTimeout("timedCount()", 50)
+
+		}
+
+		function starter() {
+
+			$('#danmu').danmu('danmuStart');
+
+		}
+		function pauser() {
+
+			$('#danmu').danmu('danmuPause');
+		}
+		function resumer() {
+
+			$('#danmu').danmu('danmuResume');
+		}
+		function stoper() {
+			$('#danmu').danmu('danmuStop');
+		}
+
+		function getime() {
+			alert($('#danmu').data("nowTime"));
+		}
+
+		function getpaused() {
+			alert($('#danmu').data("paused"));
+		}
+
+		function add() {
+			var newd = {
+				"text" : "new2",
+				"color" : "green",
+				"size" : "1",
+				"position" : "0",
+				"time" : 60
+			};
+
+			$('#danmu').danmu("addDanmu", newd);
+		}
+		function insert() {
+			var newd = {
+				"text" : "new2",
+				"color" : "green",
+				"size" : "1",
+				"position" : "0",
+				"time" : 50
+			};
+			str_newd = JSON.stringify(newd);
+			danmu: str_newd
+			alert(data)
+		}
+		function query() {
+			$('#danmu').danmu("addDanmu", "哇哈哈哈");
+		}
+
+		function send() {
+			var text = document.getElementById('text').value;
+			var name = document.getElementById('name').value;
+			var color = document.getElementById('color').value;
+			var position = document.getElementById('position').value;
+			var time = $('#danmu').data("nowTime") + 1;
+			var size = document.getElementById('text_size').value;
+			text = name + ":" + text;
+			var text_obj = '{ "text":"' + text + '","color":"' + color
+					+ '","size":"' + size + '","position":"' + position
+					+ '","time":' + time + '}';
+			danmu: text_obj
+			var text_obj = '{ "text":"' + text + '","color":"' + color
+					+ '","size":"' + size + '","position":"' + position
+					+ '","time":' + time + ',"isnew":""}';
+			var new_obj = eval('(' + text_obj + ')');
+			$('#danmu').danmu("addDanmu", new_obj);
+			document.getElementById('text').value = '';
+		}
+
+		function op() {
+			var op = document.getElementById('op').value;
+			$('#danmu').danmu("setOpacity", op / 100);
+		}
+
+		function changehide() {
+			var op = document.getElementById('op').value;
+			op = op / 100;
+			if (document.getElementById("ishide").checked) {
+				$("#danmu").danmu("setOpacity", 1)
+			} else {
+				$("#danmu").danmu("setOpacity", 0)
+
+			}
+		}
+
+		function settime() {
+			var t = document.getElementById("set_time").value;
+			t = parseInt(t)
+			$('#danmu').danmu("setTime", t);
+		}
+	</script>
+
+
+</body>
+</html>
+<!-- jquery.danmu.js (//github.com/chiruom/danmu/) - Licensed under the MIT license -->
