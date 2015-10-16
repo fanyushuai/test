@@ -22,7 +22,7 @@
 		<a id="sky" class="dow" href="sky.html">云朵</a>
 		<a id="click" class="dow" href="what.html">what</a>
 		<a id="no" class="dow" href="haha.html">不要点</a>
-		<a id="dangmu" class="dow" href="haha.html">弹幕</a>
+		<a id="dangmu" class="dow" href="dangmu.html">弹幕</a>
 	</center>
 </body>
 </html>
