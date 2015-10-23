@@ -8,6 +8,8 @@
 <script src="js/jquery.danmu.js"></script>
 <script src="js/my.js"></script>
 <script src="js/movediv.js"></script>
+<script type="text/javascript">
+</script>
 </head>
 
 <body id="danmu" style="width: 100%;height: 100%;color: black">
@@ -70,7 +72,7 @@
 			</tr>
 			<tr>
 				<td>
-					<button type="button" onclick="send()">发送</button>
+					<button type="button" onclick="send()" id="send">发送</button>
 				</td>
 			</tr>
 			
@@ -82,7 +84,77 @@
 
 	</div>
 	<script>
+		var Chat = {};
 		(function($) {
+			
+	        Chat.socket = null;
+
+	        Chat.connect = (function(host) {
+	            if ('WebSocket' in window) {
+	                Chat.socket = new WebSocket(host);
+	            } else if ('MozWebSocket' in window) {
+	                Chat.socket = new MozWebSocket(host);
+	            } else {
+	                alert('Error: WebSocket is not supported by this browser.');
+	                return;
+	            }
+
+	            Chat.socket.onopen = function () {
+	                alert('Info: WebSocket connection opened.');
+	                document.onkeydown = function(e){ 
+	    			    var ev = document.all ? window.event : e;
+	    			    if(ev.keyCode==13) {
+	    			    	if(document.getElementById('name').value == ""){
+	    			    		alert("输个名称吧！");
+	    			    		return false;
+	    			    	}
+	    			    	Chat.sendMessage();
+	    			     }
+	    			}
+	                
+	                document.getElementById("send").onkeydown = function(e){ 
+	                	if(document.getElementById('name').value == ""){
+    			    		alert("输个名称吧！");
+    			    		return false;
+    			    	}
+	                	Chat.sendMessage();
+	    			}
+	            };
+
+	            Chat.socket.onclose = function () {
+	                alert('Info: WebSocket closed.');
+	            };
+
+	            Chat.socket.onmessage = function (message) {
+	            	send(message.data);
+	            };
+	        });
+
+	        Chat.initialize = function() {
+	            if (window.location.protocol == 'http:') {
+	                Chat.connect('ws://' + window.location.host + '/weixin/message');
+	            } else {
+	                Chat.connect('wss://' + window.location.host + '/weixin/message');
+	            }
+	        };
+
+	        Chat.sendMessage = (function() {
+	        	var text = document.getElementById('text').value;
+				var name = document.getElementById('name').value;
+	            Chat.socket.send(name+":"+text);
+	        });
+	        
+	        var Console = {};
+
+	        Console.log = (function(message) {
+	            var console = document.getElementById('console');
+	            var p = document.createElement('p');
+	            p.style.wordWrap = 'break-word';
+	        });
+
+	        Chat.initialize();
+
+		    //end
 			$.Move($('#setting'));
 			$('#danmu').danmu('danmuResume');
 			/**
@@ -188,14 +260,17 @@
 			$('#danmu').danmu("addDanmu", "哇哈哈哈");
 		}
 
-		function send() {
-			var text = document.getElementById('text').value;
-			var name = document.getElementById('name').value;
+		function send(message) {
+			if(document.getElementById('name').value == ""){
+	    		alert("输个名称吧！");
+	    		return false;
+	    	}
+			Chat.sendMessage();
 			var color = document.getElementById('color').value;
 			var position = document.getElementById('position').value;
 			var time = $('#danmu').data("nowTime") + 1;
 			var size = document.getElementById('text_size').value;
-			text = name + ":" + text;
+			text = message;
 			var text_obj = '{ "text":"' + text + '","color":"' + color
 					+ '","size":"' + size + '","position":"' + position
 					+ '","time":' + time + '}';
@@ -230,7 +305,6 @@
 			$('#danmu').danmu("setTime", t);
 		}
 	</script>
-
 
 </body>
 </html>
