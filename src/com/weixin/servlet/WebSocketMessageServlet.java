@@ -10,10 +10,11 @@ import org.apache.catalina.websocket.WebSocketServlet;
 public class WebSocketMessageServlet extends WebSocketServlet {
 	private static final long serialVersionUID = 1L;  
     
-    public static int ONLINE_USER_COUNT = 1;  
+    public static int ONLINE_USER_COUNT = 0;  
       
-    public String getUser(HttpServletRequest request){  
-        return (String) request.getSession().getAttribute("user");  
+    public String getUser(HttpServletRequest request){ 
+    	ONLINE_USER_COUNT++;
+        return "用户"+ONLINE_USER_COUNT;  
     }  
   
     //跟平常Servlet不同的是，需要实现createWebSocketInbound，在这里初始化自定义的WebSocket连接对象  

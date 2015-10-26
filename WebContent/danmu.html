@@ -87,8 +87,14 @@
 		var Chat = {};
 		(function($) {
 			
+			//获取上一页面参数
+			/**var thisURL = document.URL;    
+			var  getval =thisURL.split('?')[1];  
+			var showval= getval.split("=")[1];  
+			document.getElementById("name").innerText = showval;**/
+			
+			// websocket start
 	        Chat.socket = null;
-
 	        Chat.connect = (function(host) {
 	            if ('WebSocket' in window) {
 	                Chat.socket = new WebSocket(host);
@@ -100,25 +106,14 @@
 	            }
 
 	            Chat.socket.onopen = function () {
-	                alert('Info: WebSocket connection opened.');
+	                console.log('Info: WebSocket connection opened.');
 	                document.onkeydown = function(e){ 
 	    			    var ev = document.all ? window.event : e;
 	    			    if(ev.keyCode==13) {
-	    			    	if(document.getElementById('name').value == ""){
-	    			    		alert("输个名称吧！");
-	    			    		return false;
-	    			    	}
-	    			    	Chat.sendMessage();
+	    			    	send();
 	    			     }
 	    			}
 	                
-	                document.getElementById("send").onkeydown = function(e){ 
-	                	if(document.getElementById('name').value == ""){
-    			    		alert("输个名称吧！");
-    			    		return false;
-    			    	}
-	                	Chat.sendMessage();
-	    			}
 	            };
 
 	            Chat.socket.onclose = function () {
@@ -126,7 +121,20 @@
 	            };
 
 	            Chat.socket.onmessage = function (message) {
-	            	send(message.data);
+	            	var color = document.getElementById('color').value;
+	    			var position = document.getElementById('position').value;
+	    			var time = $('#danmu').data("nowTime") + 1;
+	    			var size = document.getElementById('text_size').value;
+	    			var text_obj = '{ "text":"' + message.data + '","color":"' + color
+	    					+ '","size":"' + size + '","position":"' + position
+	    					+ '","time":' + time + '}';
+	    			danmu: text_obj
+	    			var text_obj = '{ "text":"' + message.data + '","color":"' + color
+	    					+ '","size":"' + size + '","position":"' + position
+	    					+ '","time":' + time + ',"isnew":""}';
+	    			var new_obj = eval('(' + text_obj + ')');
+	    			$('#danmu').danmu("addDanmu", new_obj);
+	    			document.getElementById('text').value = '';
 	            };
 	        });
 
@@ -144,17 +152,11 @@
 	            Chat.socket.send(name+":"+text);
 	        });
 	        
-	        var Console = {};
-
-	        Console.log = (function(message) {
-	            var console = document.getElementById('console');
-	            var p = document.createElement('p');
-	            p.style.wordWrap = 'break-word';
-	        });
-
 	        Chat.initialize();
-
-		    //end
+	        //websocket end
+	        
+	        
+		    //弹幕 start
 			$.Move($('#setting'));
 			$('#danmu').danmu('danmuResume');
 			/**
@@ -260,17 +262,19 @@
 			$('#danmu').danmu("addDanmu", "哇哈哈哈");
 		}
 
-		function send(message) {
+		function send() {
 			if(document.getElementById('name').value == ""){
 	    		alert("输个名称吧！");
 	    		return false;
 	    	}
-			Chat.sendMessage();
+			/**
+			var text = document.getElementById('text').value;
+			var name = document.getElementById('name').value;
 			var color = document.getElementById('color').value;
 			var position = document.getElementById('position').value;
 			var time = $('#danmu').data("nowTime") + 1;
 			var size = document.getElementById('text_size').value;
-			text = message;
+			text = name +":"+text;
 			var text_obj = '{ "text":"' + text + '","color":"' + color
 					+ '","size":"' + size + '","position":"' + position
 					+ '","time":' + time + '}';
@@ -279,8 +283,8 @@
 					+ '","size":"' + size + '","position":"' + position
 					+ '","time":' + time + ',"isnew":""}';
 			var new_obj = eval('(' + text_obj + ')');
-			$('#danmu').danmu("addDanmu", new_obj);
-			document.getElementById('text').value = '';
+			$('#danmu').danmu("addDanmu", new_obj);**/
+			Chat.sendMessage();
 		}
 
 		function op() {
@@ -304,6 +308,8 @@
 			t = parseInt(t)
 			$('#danmu').danmu("setTime", t);
 		}
+		
+		//弹幕 end
 	</script>
 
 </body>

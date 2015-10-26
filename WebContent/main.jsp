@@ -14,6 +14,14 @@
 			$("#"+element.id).offset(round());
 		})
 	};
+	
+	function yourName(){
+	 var str=prompt("请输入名称","比如：神一样的逗逼");
+	    if(str){
+	    	window.location.href='danmu.html?user='+str;
+	        //alert("您刚输入的是："+ str);
+	    }
+	}
 </script>
 </head>
 <body>
@@ -22,7 +30,8 @@
 		<a id="sky" class="dow" href="sky.html">云朵</a>
 		<a id="click" class="dow" href="what.html">what</a>
 		<a id="no" class="dow" href="haha.html">不要点</a>
-		<a id="dangmu" class="dow" href="dangmu.html">弹幕</a>
+		<!-- <a id="dangmu"  class="dow" href="javascript:void(0)" onclick="yourName()">弹幕</a> -->
+		<a id="dangmu"  class="dow" href="danmu.html">弹幕</a>
 	</center>
 </body>
 </html>
