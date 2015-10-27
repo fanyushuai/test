@@ -88,6 +88,7 @@ names[12] = '赵日天';
 names[13] = '刘干地';
 names[14] = '日穿钢板';
 names[15] = '哎呦我去';
+names[16] = '刘能';
 
 function getName(){
 	return names[Math.floor(Math.random()*names.length)];
