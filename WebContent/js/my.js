@@ -70,3 +70,25 @@ function msgInfo (){
 	//return msg[Math.floor(Math.random()*msg.length)];
 }
 
+
+var names = new Array();
+names[0] = '刘德华';
+names[1] = '黄家驹';
+names[2] = '犀利哥';
+names[3] = '庞麦郎';
+names[4] = '凤姐';
+names[5] = '体操哥';
+names[6] = '尼古拉斯赵四';
+names[7] = '小样儿';
+names[8] = '亚历山大小宝';
+names[9] = '一夜七次郎';
+names[10] = '扒拉猛干斯基';
+names[11] = '裤裆有杀气';
+names[12] = '赵日天';
+names[13] = '刘干地';
+names[14] = '日穿钢板';
+names[15] = '哎呦我去';
+
+function getName(){
+	return names[Math.floor(Math.random()*names.length)];
+}

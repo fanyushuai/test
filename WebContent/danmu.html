@@ -16,9 +16,9 @@
 	<div id="setting" style="z-index: 1;background-color:gray;border:1px solid #000;">
 		<table>
 			<tr>
-				<!--  <td>
+				<td>
 					<button type="button" onclick="resumer() ">开始/继续</button>
-				</td>-->
+				</td>
 				<td>
 					<button type="button" onclick="pauser()">暂停</button>
 				</td>
@@ -62,20 +62,23 @@
 			</tr>
 			<tr>
 				<td>
-					内容：<input type="textarea" id="text" max="300" clos="100">
+					昵称：<label id="name"></label>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					昵称：<input type="text" id="name" max="10">
+					内容：<input type="textarea" id="text" max="300" clos="100">
 				</td>
+				<td>回车发送</td>
 			</tr>
+			
+			<!-- 
 			<tr>
 				<td>
 					<button type="button" onclick="send()" id="send">发送</button>
 				</td>
 			</tr>
-			
+			 -->
 		</table>
 		<!--当前弹幕运行时间(秒)：<span
 			id="time">0</span>&nbsp;&nbsp; 设置当前弹幕时间(秒)： <input type="text"
@@ -85,6 +88,8 @@
 	</div>
 	<script>
 		var Chat = {};
+		var name = getName();
+		document.getElementById("name").innerHTML = name;
 		(function($) {
 			
 			//获取上一页面参数
@@ -140,15 +145,15 @@
 
 	        Chat.initialize = function() {
 	            if (window.location.protocol == 'http:') {
-	                Chat.connect('ws://' + window.location.host + '/weixin/message');
+	                Chat.connect(encodeURI(encodeURI('ws://' + window.location.host + '/weixin/message?user='+name)));
 	            } else {
-	                Chat.connect('wss://' + window.location.host + '/weixin/message');
+	                Chat.connect(encodeURI('ws://' + window.location.host + '/weixin/message?user='+name));
 	            }
 	        };
 
 	        Chat.sendMessage = (function() {
 	        	var text = document.getElementById('text').value;
-				var name = document.getElementById('name').value;
+				var name = document.getElementById('name').innerHTML;
 	            Chat.socket.send(name+":"+text);
 	        });
 	        
@@ -211,30 +216,23 @@
 		}
 
 		function starter() {
-
 			$('#danmu').danmu('danmuStart');
-
 		}
 		function pauser() {
-
 			$('#danmu').danmu('danmuPause');
 		}
 		function resumer() {
-
 			$('#danmu').danmu('danmuResume');
 		}
 		function stoper() {
 			$('#danmu').danmu('danmuStop');
 		}
-
 		function getime() {
 			alert($('#danmu').data("nowTime"));
 		}
-
 		function getpaused() {
 			alert($('#danmu').data("paused"));
 		}
-
 		function add() {
 			var newd = {
 				"text" : "new2",
@@ -263,13 +261,13 @@
 		}
 
 		function send() {
-			if(document.getElementById('name').value == ""){
+			if(document.getElementById('name').innerHTML == ""){
 	    		alert("输个名称吧！");
 	    		return false;
 	    	}
 			/**
 			var text = document.getElementById('text').value;
-			var name = document.getElementById('name').value;
+			var name = document.getElementById('name').innerHTML;
 			var color = document.getElementById('color').value;
 			var position = document.getElementById('position').value;
 			var time = $('#danmu').data("nowTime") + 1;
